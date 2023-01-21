@@ -1,0 +1,33 @@
+# .gitignore
+
+# Directories
+__pycache__/
+dist/
+build/
+test_data/
+
+# Files
+*.pyc
+*.egg-info
+*.whl
+*.log
+*.csv
+*.html
+*.json
+*.pdf
+*.docx
+*.xlsx
+*.pkl
+*.pkl
+*.pkl
+*.pkl
+*.pkl
+*.pkl
+*.pkl
+*.pkl
+*.pkl
+
+# IDE files
+.vscode/
+*.vscodeignore
+*.settings
