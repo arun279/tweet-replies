@@ -127,29 +127,12 @@ class TweetReplies:
             for tweet_id, tweet_div in tweets.items():
                 csv_writer.writerow([tweet_id, tweet_div])
 
-    # def start(self):
-    #     tweets_data = self.extract_data_from_csv()
-    #     with open(self.tweet_file, 'w', encoding='utf-8', newline='') as file:
-    #         csv_writer = csv.writer(file)
-    #         csv_writer.writerow(["handle", "content", "url", "tweet"])
-    #         for tweet in tweets_data:
-    #             csv_writer.writerow([tweet["handle"], tweet["content"], tweet["url"], tweet["tweet"]])
-    #     self.driver.close()
-
     def start(self):
         tweet_data = self.extract_data_from_csv()
         with open(self.tweet_file, 'w', encoding='utf-8', newline='') as file:
             csv_writer = csv.DictWriter(file, fieldnames=["handle", "content", "url", "tweet"])
             csv_writer.writeheader()
             csv_writer.writerows(tweet_data)
-
-# if __name__ == "__main__":
-#     tweet_replies = TweetReplies()
-#     tweet_data = tweet_replies.extract_data_from_csv()
-#     with open(tweet_replies.tweet_file, 'w', encoding='utf-8', newline='') as file:
-#         csv_writer = csv.DictWriter(file, fieldnames=["handle", "content", "url", "tweet"])
-#         csv_writer.writeheader()
-#         csv_writer.writerows(tweet_data)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
