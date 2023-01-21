@@ -45,7 +45,7 @@ The script will open the specified URL in a Selenium webdriver, scroll down to l
 
 If the `content_file` already exists, the script will read the data from the file and extract the handle, content, and URLs of tweets and replies, and store the data in a list of dictionaries.
 
-2. Use the csv_to_html.py script to convert the tweet_file to an HTML table:
+2. Use the `csv_to_html.py` script to convert the `tweet_file` to an HTML table:
 ```
 python csv_to_html.py
 ```
