@@ -15,7 +15,8 @@ class TweetReplies:
         if url is None:
             raise ValueError("A url must be provided")
         self.url = url
-        if not re.match(r"https://twitter.com/\w+/status/\d+", self.url):
+        url_regex = self.config['DEFAULT']['url_regex']        
+        if not re.match(url_regex, self.url):
             raise ValueError("Invalid Twitter URL")
         self.content_file = content_file or self.config['DEFAULT']['content_file']
         if not os.path.isfile(self.content_file):
@@ -26,6 +27,7 @@ class TweetReplies:
             os.makedirs(os.path.dirname(self.tweet_file), exist_ok=True)
             open(self.tweet_file, 'a').close()
         self.headless = headless or self.config.getboolean('DEFAULT', 'headless', fallback=False)
+        self.tweet_link_format = self.config['DEFAULT']['tweet_link_format']
         self.tweet_div_css = self.config['CSS']['tweet_div']
         self.handle_div_css = self.config['CSS']['handle_div']
         self.content_div_css = self.config['CSS']['content_div']
@@ -91,7 +93,7 @@ class TweetReplies:
                 content = self.extract_content(tweet_div)
                 url = self.extract_url(tweet_div)
                 if handle and content and url:
-                    tweet_link = "https://twitter.com/{handle}/status/{tweet_id}".format(handle=handle, tweet_id=tweet_id)
+                    tweet_link = self.tweet_link_format.format(handle=handle, tweet_id=tweet_id)
                     data.append({"handle": handle, "content": content, "url": url, "tweet": tweet_link})
                 else:
                     continue
