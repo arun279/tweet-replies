@@ -26,6 +26,9 @@ class TweetReplies:
             os.makedirs(os.path.dirname(self.tweet_file), exist_ok=True)
             open(self.tweet_file, 'a').close()
         self.headless = headless or self.config.getboolean('DEFAULT', 'headless', fallback=False)
+        self.tweet_div_css = self.config['CSS']['tweet_div']
+        self.handle_div_css = self.config['CSS']['handle_div']
+        self.content_div_css = self.config['CSS']['content_div']
 
 
     def setup_selenium(self):
@@ -39,7 +42,7 @@ class TweetReplies:
         handle = None
         try:
             soup = BeautifulSoup(reply_div, 'html.parser')
-            handle_div = soup.select_one(".css-901oao.r-1bwzh9t.r-37j5jr.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-qvutc0")
+            handle_div = soup.select_one(self.handle_div_css)
             handle = handle_div.select_one("a span").get_text()
         except Exception as e:
             pass
@@ -49,7 +52,7 @@ class TweetReplies:
         content = None
         try:
             soup = BeautifulSoup(reply_div, 'html.parser')
-            content_div = soup.select_one(".css-901oao.r-1nao33i.r-37j5jr.r-a023e6.r-16dba41.r-rjixqe.r-bcqeeo.r-bnwqim.r-qvutc0")
+            content_div = soup.select_one(self.content_div_css)
             content = content_div.get_text()
         except Exception as e:
             pass
@@ -103,7 +106,7 @@ class TweetReplies:
             # Wait for the page to load
             time.sleep(2)
             # Get all the tweet divs on the page
-            tweet_divs = self.driver.find_elements(By.CSS_SELECTOR, ".css-1dbjc4n.r-1igl3o0.r-qklmqi.r-1adg3ll.r-1ny4l3l")
+            tweet_divs = self.driver.find_elements(By.CSS_SELECTOR, self.tweet_div_css)
             # Iterate over the tweet divs
             for tweet_div in tweet_divs:
                 # Get the tweet id
