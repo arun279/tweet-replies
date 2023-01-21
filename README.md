@@ -25,13 +25,11 @@ python setup.py
 Edit the `config.ini` file in the same directory as the script and specify the following parameters:
 ```
 [DEFAULT]
-url = https://twitter.com/username/status/tweet_id
 content_file = <content_filename>.csv
 tweet_file = <tweets_filename>.csv
 output_html = <output_html_filename>.html
 headless = False
 ```
-- `url`: The URL of the tweet or thread you want to scrape
 - `content_file`: The name of the file where the extracted data will be stored
 - `tweet_file`: The name of the file where the tweets will be stored
 - `output_html`: The name of the file where the HTML table will be stored
@@ -41,7 +39,7 @@ headless = False
 
 1. Run the script with the following command:
 ```
-python tweet_replies.py
+python tweet_replies.py <url-to-tweet>
 ```
 The script will open the specified URL in a Selenium webdriver, scroll down to load more tweets and replies, and then extract the handle, content, and URLs of the tweets and replies. The extracted data will be stored in the specified CSV file.
 
